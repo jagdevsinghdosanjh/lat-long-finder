@@ -1,0 +1,27 @@
+# Core FastAPI Setup
+fastapi
+uvicorn[standard]
+jinja2
+aiofiles
+python-multipart
+httpx
+requests
+mangum
+python-dotenv
+
+# 📊 Analytics & CSV Export
+pandas
+
+# Google Sheets & Cloud Integration (optional, advanced use)
+gspread
+oauth2client
+google-auth
+google-auth-oauthlib
+google-api-python-client
+
+# Other Google Cloud Services (optional, future-ready)
+google-cloud-storage
+google-cloud-bigquery
+google-cloud-firestore
+google-cloud-pubsub
+google-cloud-vision

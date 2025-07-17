@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Access Log Analytics</title>
+  <link rel="stylesheet" href="{{ url_for('static', path='styles/styles.css') }}">
+</head>
+<body>
+  <header><h1>📈 Access Log Analytics</h1></header>
+  <main>
+    <label for="startDate">Start Date:</label>
+    <input type="date" id="startDate" />
+    <label for="endDate">End Date:</label>
+    <input type="date" id="endDate" />
+    <button onclick="filterLogs()">Apply Filter</button>
+
+    <canvas id="platformChart" width="400" height="200"></canvas>
+    <canvas id="browserChart" width="400" height="200"></canvas>
+    <button onclick="window.location.href='/download-access-log'">Download CSV</button>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="/static/scripts/analytics-dashboard.js"></script>
+</body>
+</html>
