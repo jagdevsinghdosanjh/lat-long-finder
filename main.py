@@ -67,9 +67,14 @@ async def download_access_log():
 async def show_analytics(request: Request):
     return templates.TemplateResponse("analytics.html", {"request": request})
 
+@app.get("/about.html", response_class=HTMLResponse)
+async def about(request: Request):
+    return templates.TemplateResponse("about.html", {"request": request})
 
+@app.get("/contact.html", response_class=HTMLResponse)
+async def contact(request: Request):
+    return templates.TemplateResponse("contact.html", {"request": request})
 
-app = FastAPI()
 
 # Mount static files
 app.mount("/static", StaticFiles(directory="static"), name="static")
