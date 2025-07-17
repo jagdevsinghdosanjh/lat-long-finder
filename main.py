@@ -4,6 +4,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
 from datetime import datetime
+from fastapi.responses import JSONResponse
 
 app = FastAPI()
 
@@ -96,6 +97,30 @@ async def find_coordinates(request: Request, location: str = Form(...)):
         "long": long,
         "location": location
     })
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
+templates = Jinja2Templates(directory="templates")
+
+@app.post("/geo")
+async def receive_geo(request: Request):
+    data = await request.json()
+    lat = data.get("latitude")
+    long = data.get("longitude")
+    
+    # Log to access_log.txt
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    log_entry = f"{timestamp} - Lat: {lat}, Long: {long}\n"
+    with open("access_log.txt", "a") as log_file:
+        log_file.write(log_entry)
+
+    return JSONResponse(content={"latitude": lat, "longitude": long})
+
+# @app.post("/geo")
+# async def receive_geo(request: Request):
+#     data = await request.json()
+#     lat = data.get("latitude")
+#     long = data.get("longitude")
+#     return JSONResponse(content={"latitude": lat, "longitude": long})
 
 
 
