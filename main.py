@@ -1,5 +1,5 @@
-from fastapi import FastAPI, Request, Form, status
-from fastapi.responses import HTMLResponse, PlainTextResponse, RedirectResponse
+from fastapi import FastAPI, Request, Form
+from fastapi.responses import HTMLResponse, PlainTextResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
@@ -66,6 +66,32 @@ async def download_access_log():
 @app.get("/analytics", response_class=HTMLResponse)
 async def show_analytics(request: Request):
     return templates.TemplateResponse("analytics.html", {"request": request})
+
+
+
+app = FastAPI()
+
+# Mount static files
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+# Set up templates
+templates = Jinja2Templates(directory="templates")
+
+@app.get("/", response_class=HTMLResponse)
+async def home(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
+
+@app.post("/find", response_class=HTMLResponse)
+async def find_coordinates(request: Request, location: str = Form(...)):
+    # Dummy coordinates for now
+    lat, long = 31.6340, 74.8723
+    return templates.TemplateResponse("index.html", {
+        "request": request,
+        "lat": lat,
+        "long": long,
+        "location": location
+    })
+
 
 
 # # FastAPI app entry point
