@@ -1,1 +1,33 @@
-<html><head><title>Home</title></head><body>Index</body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lat-Long Finder | Home</title>
+  <link rel="stylesheet" href="/static/styles/styles.css">
+</head>
+<body>
+  <header>
+    <h1>Lat-Long Finder</h1>
+    <p>Enter a location to find its geographical coordinates</p>
+  </header>
+
+  <main>
+    <form action="/find" method="post">
+      <input type="text" name="location" placeholder="Enter city or address" required>
+      <button type="submit">Find Coordinates</button>
+    </form>
+
+    {% if lat and long %}
+      <section>
+        <h2>Results</h2>
+        <p>Latitude: {{ lat }}</p>
+        <p>Longitude: {{ long }}</p>
+      </section>
+    {% endif %}
+  </main>
+
+  <footer>
+    <a href="/about.html">About</a> | <a href="/contact.html">Contact</a>
+  </footer>
+</body>
+</html>
